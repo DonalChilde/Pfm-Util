@@ -3,15 +3,15 @@ PFM Util
 ========
 
 
-.. image:: https://img.shields.io/pypi/v/pfm_util.svg
-        :target: https://pypi.python.org/pypi/pfm_util
+.. .. image:: https://img.shields.io/pypi/v/pfm_util.svg
+..         :target: https://pypi.python.org/pypi/pfm_util
 
-.. image:: https://img.shields.io/travis/DonalChilde/pfm_util.svg
-        :target: https://travis-ci.com/DonalChilde/pfm_util
+.. image:: https://www.travis-ci.com/DonalChilde/Pfm-Util.svg?branch=master
+    :target: https://www.travis-ci.com/DonalChilde/Pfm-Util
 
-.. image:: https://readthedocs.org/projects/pfm-util/badge/?version=latest
-        :target: https://pfm-util.readthedocs.io/en/latest/?badge=latest
-        :alt: Documentation Status
+.. .. image:: https://readthedocs.org/projects/pfm-util/badge/?version=latest
+..         :target: https://pfm-util.readthedocs.io/en/latest/?badge=latest
+..         :alt: Documentation Status
 
 
 
