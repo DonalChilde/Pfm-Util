@@ -1,0 +1,16 @@
+pip
+black
+wheel
+tox
+coverage
+Sphinx
+sphinx-autodoc-typehints
+twine
+Click
+pytest
+pytest-cov
+Faker
+pylint
+mypy
+doc8
+rstcheck

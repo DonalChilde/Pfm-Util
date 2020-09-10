@@ -1,0 +1,50 @@
+[build-system]
+requires = ["setuptools >= 40.6.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.tox]
+legacy_tox_ini = """
+[tox]
+envlist = clean,py38
+
+[testenv]
+commands =
+    # NOTE: you can run any command line tool here - not just tests
+    pytest --cov=pfm_util tests/ --cov-append --cov-report=html --cov-report=term
+
+deps =
+    pytest
+    pytest-cov
+    -r{toxinidir}/requirements.txt
+
+[testenv:clean]
+deps = coverage
+skip_install = true
+commands = coverage erase
+"""
+
+# [tool.coverage.run]
+# branch = True
+
+# [tool.coverage.report]
+# # Regexes for lines to exclude from consideration
+# exclude_lines =
+#     # Have to re-enable the standard pragma
+#     pragma: no cover
+
+#     # Don't complain about missing debug-only code:
+#     def __repr__
+#     if self\.debug
+
+#     # Don't complain if tests don't hit defensive assertion code:
+#     raise AssertionError
+#     raise NotImplementedError
+
+#     # Don't complain if non-runnable code isn't run:
+#     if 0:
+#     if __name__ == .__main__.:
+
+# ignore_errors = True
+
+# [tool.coverage.html]
+# directory = coverage_html_report
