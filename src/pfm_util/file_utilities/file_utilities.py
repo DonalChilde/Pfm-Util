@@ -137,7 +137,7 @@ def save_lines(
     parents: bool = False,
     exist_ok: bool = True,
     **kwargs,
-) -> int:
+):
     r"""
     Write a sequence of strings as lines to a file.
 
@@ -156,24 +156,18 @@ def save_lines(
 
     ValueError: If unsupported file mode is used.
     Exception: Any exception raised during the saving of the file.
-
-    int: Count of lines saved.
     """
 
     try:
         if mode not in ["w", "x", "a"]:
             raise ValueError(f"Unsupported file mode '{mode}'.")
-        count = 0
         if parents:
             file_path.parent.mkdir(parents=parents, exist_ok=exist_ok)
         with file_path.open(mode, **kwargs) as file_out:
             if line_separator:
                 file_out.writelines((f"{x}{line_separator}" for x in data))
-                count += 1
             else:
                 file_out.writelines(data)
-                count += 1
-        return count
     except Exception as error:
         logger.exception("Error trying to save lines to %s", file_path, exc_info=True)
         raise error
@@ -187,7 +181,7 @@ def save_stringables(
     parents: bool = False,
     exist_ok: bool = True,
     **kwargs,
-) -> int:
+):
     r"""
     Save an iterable that can be converted to a string via str(obj).
 
@@ -205,11 +199,9 @@ def save_stringables(
 
     :raises ValueError: If unsupported file mode is used.
     :raises Exception: Any exception raised during the saving of the file.
-
-    :return: Count of lines saved.
     """
     str_itr = (str(x) for x in iterable_stringable)
-    count = save_lines(
+    save_lines(
         str_itr,
         file_path=file_path,
         mode=mode,
@@ -218,7 +210,6 @@ def save_stringables(
         exist_ok=exist_ok,
         **kwargs,
     )
-    return count
 
 
 def delta_path(base_path: Path, item_path: Path, new_base_path: Path) -> Path:
