@@ -307,7 +307,7 @@ def write_list_of_dicts_to_csv(
     data: Sequence[Dict[str, Any]],
     file_path: Path,
     mode: str = "w",
-    parents: bool = False,
+    parents: bool = True,
     exist_ok: bool = True,
     field_names: Optional[Sequence[str]] = None,
 ) -> int:
@@ -317,7 +317,7 @@ def write_list_of_dicts_to_csv(
     :param data: Data to save.
     :param file_path: Path to saved file. Existing files will be overwritten.
     :param mode: File mode to use. As used in `open`. Limited to 'w' or 'x'. Defaults to 'w'.
-    :param parents: Make parent directories if they don't exist. As used by `Path.mkdir`, by default False
+    :param parents: Make parent directories if they don't exist. As used by `Path.mkdir`, by default True
     :param exist_ok: Suppress exception if parent directory exists as directory. As used by `Path.mkdir`, by default True
     :param field_names: Optionally reorder fields, by default None
 
@@ -349,7 +349,7 @@ def write_named_tuple_to_csv(
     data: Sequence[NamedTuple],
     file_path: Path,
     mode: str = "w",
-    parents: bool = False,
+    parents: bool = True,
     exist_ok: bool = True,
 ) -> int:
     try:
@@ -374,7 +374,7 @@ def write_list_to_csv(
     data: Iterable[Sequence],
     file_path: Path,
     mode: str = "w",
-    parents: bool = False,
+    parents: bool = True,
     exist_ok: bool = True,
     has_header: bool = True,
     headers: Optional[Sequence[str]] = None,
@@ -385,7 +385,7 @@ def write_list_to_csv(
     :param data: [description]
     :param file_path: [description]
     :param mode: File mode to use. As used in `open`. Limited to 'w' or 'x'. Defaults to 'w'.
-    :param parents: [description], by default False
+    :param parents: [description], by default True
     :param exist_ok: [description], by default True
     :param has_header: First row of supplied data is the header, by default True
     :param headers: Headers to use if not supplied in data, by default None
