@@ -14,3 +14,5 @@ pylint
 mypy
 doc8
 rstcheck
+
+python-dateutil

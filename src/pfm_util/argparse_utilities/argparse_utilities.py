@@ -5,12 +5,32 @@ from pathlib import Path
 
 
 class ArgumentParser(argparse.ArgumentParser):
+    """
+    Change default behavior of argparse on encounering an exception.
+
+    # TODO needs testing
+
+    https://stackoverflow.com/a/16942165
+
+    :param argparse: [description]
+    """
+
     def error(self, message):
         self.print_help(sys.stderr)
         self.exit(2, "%s: error: %s\n" % (self.prog, message))
 
 
 class ReadableDir(argparse.Action):
+    """
+    Argparse Action to ensure cmd line argument is a valid path to a directory.
+
+    # TODO This needs some picking apart and some testing.
+
+    https://stackoverflow.com/a/11415816
+
+    :param argparse: [description]
+    """
+
     def __call__(self, parser, namespace, values, option_string=None):
         try:
             dir_path = Path(values).resolve(strict=True)

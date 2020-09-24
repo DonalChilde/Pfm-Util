@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from datetime import timedelta
 from typing import Optional
 
-HHHMMSS = r"(?P<hours>[0-9]+([,.][0-9]+)?)"
+# HHHMMSS = r"(?P<hours>[0-9]+([,.][0-9]+)?)"
 
 
 def parse_isoformatDuration(durationString: str) -> timedelta:
@@ -47,9 +47,7 @@ def parse_HHMMSS(
 def HHHMMSS_to_seconds_int(
     duration_string: str, hm_separator: str = ":", ms_separator: str = ":"
 ) -> int:
-    """Convenience method to convert a duration string to seconds.
-
-    """
+    """Convenience method to convert a duration string to seconds."""
     parsed_value = parse_HHMMSS(
         duration_string=duration_string,
         hm_separator=hm_separator,
@@ -89,24 +87,49 @@ class TimeDeltaSplit:
     seconds: int = 0
     microseconds: int = 0
 
+    def to_seconds(self) -> int:
+        seconds = duration_to_seconds_int(
+            self.days, self.hours, self.minutes, self.seconds
+        )
+        return seconds
 
-def timedelta_split(timeDelta: timedelta) -> TimeDeltaSplit:
-    int_seconds = 0
-    if timeDelta.days:
-        int_seconds = int_seconds + (abs(timeDelta.days) * 86400)
-    if timeDelta.seconds:
-        int_seconds = int_seconds + timeDelta.seconds
-    minutes, seconds = divmod(int_seconds, 60)
-    hours, minutes = divmod(minutes, 60)
-    days, hours = divmod(hours, 24)
-    microseconds = timeDelta.microseconds
-    return TimeDeltaSplit(
-        days=days,
-        hours=hours,
-        minutes=minutes,
-        seconds=seconds,
-        microseconds=microseconds,
-    )
+    @classmethod
+    def from_timedelta(cls, delta: timedelta) -> "TimeDeltaSplit":
+        int_seconds = 0
+        if delta.days:
+            int_seconds = int_seconds + (abs(delta.days) * 86400)
+        if delta.seconds:
+            int_seconds = int_seconds + delta.seconds
+        minutes, seconds = divmod(int_seconds, 60)
+        hours, minutes = divmod(minutes, 60)
+        days, hours = divmod(hours, 24)
+        microseconds = delta.microseconds
+        return cls(
+            days=days,
+            hours=hours,
+            minutes=minutes,
+            seconds=seconds,
+            microseconds=microseconds,
+        )
+
+
+# def timedelta_split(timeDelta: timedelta) -> TimeDeltaSplit:
+#     int_seconds = 0
+#     if timeDelta.days:
+#         int_seconds = int_seconds + (abs(timeDelta.days) * 86400)
+#     if timeDelta.seconds:
+#         int_seconds = int_seconds + timeDelta.seconds
+#     minutes, seconds = divmod(int_seconds, 60)
+#     hours, minutes = divmod(minutes, 60)
+#     days, hours = divmod(hours, 24)
+#     microseconds = timeDelta.microseconds
+#     return TimeDeltaSplit(
+#         days=days,
+#         hours=hours,
+#         minutes=minutes,
+#         seconds=seconds,
+#         microseconds=microseconds,
+#     )
 
 
 def timeDelta_TO_HHMMSS(
@@ -115,7 +138,7 @@ def timeDelta_TO_HHMMSS(
     ms_separator: str = ":",
     timespec=None,
 ):
-    timeSplit = timedelta_split(timeDelta)
+    timeSplit = TimeDeltaSplit.from_timedelta(timeDelta)
     totalHours = (timeSplit.days * 24) + timeSplit.hours
     if timespec == "M":
         return f"{totalHours}{hm_separator}{timeSplit.minutes:02d}"
@@ -139,7 +162,7 @@ def timedelta_To_isoformat(timeDelta: timedelta, strict=True) -> str:
     # hours, minutes = divmod(minutes, 60)
     # days, hours = divmod(hours, 24)
     # microseconds = timeDelta.microseconds
-    timeSplit = timedelta_split(timeDelta)
+    timeSplit = TimeDeltaSplit.from_timedelta(timeDelta)
     daystext = hourstext = minutestext = secondstext = microtext = ""
     if timeSplit.days:
         daystext = f"{timeSplit.days}D"
@@ -167,7 +190,7 @@ def timedelta_To_isoformat(timeDelta: timedelta, strict=True) -> str:
 def duration_to_seconds_int(
     days: int = 0, hours: int = 0, minutes: int = 0, seconds: int = 0
 ) -> int:
-    daySeconds = days * 24 * 60 * 60
-    hourSeconds = hours * 60 * 60
-    minuteSeconds = minutes * 60
-    return daySeconds + hourSeconds + minuteSeconds + seconds
+    day_seconds = days * 24 * 60 * 60
+    hour_seconds = hours * 60 * 60
+    minute_seconds = minutes * 60
+    return day_seconds + hour_seconds + minute_seconds + seconds

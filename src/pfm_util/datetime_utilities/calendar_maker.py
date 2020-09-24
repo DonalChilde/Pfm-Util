@@ -8,6 +8,8 @@ from pfm_util.datetime_utilities.datetime_utilities import (
 )
 from pfm_util.list_utilities.list_utilities import chunk
 
+# TODO change chunk use to more-itertools
+
 # class CalendarDate:
 #     date: arrow
 #     tags: List[str]
@@ -47,8 +49,8 @@ class CalendarMaker:
 
 
 def get_padded_dates_in_range(start_date: date, end_date: date) -> Sequence[date]:
-    padded_start = beginning_of_week(start_date, 0)
-    padded_end = end_of_week(end_date, 0)
+    padded_start = beginning_of_week(start_date, 0, False)
+    padded_end = end_of_week(end_date, 0, False)
     date_range = range_of_dates(padded_start, padded_end)
     return date_range
 

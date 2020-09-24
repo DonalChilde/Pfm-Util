@@ -15,7 +15,7 @@ commands =
 deps =
     pytest
     pytest-cov
-    -r{toxinidir}/requirements.txt
+    -rrequirements.txt
 
 [testenv:clean]
 deps = coverage

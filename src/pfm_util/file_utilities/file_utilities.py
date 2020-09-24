@@ -22,7 +22,7 @@ def load_json(file_path: Path, **kwargs) -> Any:
     [extended_summary]
 
     :param file_path: :py:class:`pathlib.Path` to the json file.
-    :param `**kwargs`: Addtional key word arguments supplied to json.load().
+    :param `**kwargs`: Addtional key word arguments supplied to :func:`json.load()`.
 
     :raises Exception: Any exception raised during the loading of the file, or the conversion to json.
 
@@ -57,13 +57,13 @@ def save_json(
     creation.
 
     :param data: Data to save to json file.
-    :param file_path: Output path to json file.
-    :param mode: File mode to use. As used in `open`. Limited to 'w' or 'x'. Defaults to 'w'.
+    :param file_path: Output :py:class:`pathlib.Path` to json file.
+    :param mode: File mode to use. As used in :func:`open`. Limited to 'w' or 'x'. Defaults to 'w'.
     :param indent: Spaces to indent json output. Defaults to 2.
-    :param sort_keys: Sort key of json dicts. Defaults to False.
-    :param parents: Make parent directories if they don't exist. As used by `Path.mkdir`. Defaults to False.
-    :param exist_ok: Suppress exception if parent directory exists as directory. As used by `Path.mkdir`. Defaults to True.
-    :param `**kwargs`: Addtional key word arguments supplied to json.dump().
+    :param sort_keys: Sort key of json dicts. Defaults to ``False``.
+    :param parents: Make parent directories if they don't exist. As used by :func:`pathlib.Path.mkdir()`. Defaults to ``False``.
+    :param exist_ok: Suppress exception if parent directory exists as directory. As used by :func:`pathlib.Path.mkdir`. Defaults to ``True``.
+    :param `**kwargs`: Addtional key word arguments supplied to :func:`json.dump()`.
 
 
     :raises ValueError: If unsupported file mode is used.
@@ -102,11 +102,11 @@ def save_string(
     creation and 'a' for appending
 
     :param data: The string to save.
-    :param file_path: Path to saved file.
-    :param mode: File mode to use. As used in `open`. Limited to 'w','x', or 'a'. Defaults to 'w'.
-    :param parents: Make parent directories if they don't exist. As used by `Path.mkdir`. Defaults to False.
-    :param exist_ok: Suppress exception if parent directory exists as directory. As used by `Path.mkdir`. Defaults to True.
-    :param `**kwargs`: Addtional key word arguments supplied to `open`.
+    :param file_path: :py:class:`pathlib.Path` to saved file.
+    :param mode: File mode to use. As used in :func:`open()`. Limited to 'w','x', or 'a'. Defaults to 'w'.
+    :param parents: Make parent directories if they don't exist. As used by :func:`pathlib.Path.mkdir()`. Defaults to ``False``.
+    :param exist_ok: Suppress exception if parent directory exists as directory. As used by :func:`pathlib.Path.mkdir()`. Defaults to ``True``.
+    :param `**kwargs`: Additional key word arguments supplied to :func:`open()`.
 
     :raises ValueError: If unsupported file mode is used.
     :raises Exception: Any exception raised during the saving of the file.
@@ -145,13 +145,13 @@ def save_lines(
     creation and 'a' for appending
 
     :param data: The sequence of lines to save.
-    :param file_path: `Path` to saved file.
+    :param file_path: :py:class:`pathlib.Path` to saved file.
     :param mode: File mode to use. As used in `open`. Limited to 'w','x', or 'a'. Defaults to 'w'.
-    :param line_separator: Separate lines with this. Defaults to `"\n"`.
-    :param parents: Make parent directories if they don't exist. As used by `Path.mkdir`.
-        Defaults to False.
-    :param exist_ok: Suppress exception if parent directory exists as directory. As used by `Path.mkdir`. Defaults to True.
-    :param `**kwargs`: Addtional key word arguments supplied to `open`.
+    :param line_separator: Separate lines with this. Defaults to ``"\n"``.
+    :param parents: Make parent directories if they don't exist. As used by :func:`pathlib.Path.mkdir()`.
+        Defaults to ``False``.
+    :param exist_ok: Suppress exception if parent directory exists as directory. As used by :py:func:`pathlib.Path.mkdir`. Defaults to ``True``.
+    :param `**kwargs`: Addtional key word arguments supplied to :func:`open()`.
 
 
     ValueError: If unsupported file mode is used.
@@ -183,19 +183,19 @@ def save_stringables(
     **kwargs,
 ):
     r"""
-    Save an iterable that can be converted to a string via str(obj).
+    Save an iterable that can be converted to a string via :func:`str()`.
 
     [extended_summary]
 
     :param iterable_stringable: An iterable containing objects that can be turned into
-        strings with str(obj).
-    :param file_path: `Path` to saved file.
+        strings with :func:`str()`.
+    :param file_path: :py:class:`pathlib.Path` to saved file.
     :param mode: File mode to use. As used in `open`. Limited to 'w','x', or 'a'. Defaults to 'w'.
-    :param line_separator: Separate lines with this. Defaults to "\n".
-    :param parents: Make parent directories if they don't exist. As used by `Path.mkdir`.
-        Defaults to False.
-    :param exist_ok: Suppress exception if parent directory exists as directory. As used by `Path.mkdir`. Defaults to True.
-    :param `**kwargs`: Addtional key word arguments supplied to `open`.
+    :param line_separator: Separate lines with this. Defaults to ``"\n"``.
+    :param parents: Make parent directories if they don't exist. As used by :func:`pathlib.Path.mkdir`.
+        Defaults to ``False``.
+    :param exist_ok: Suppress exception if parent directory exists as directory. As used by :func:`pathlib.Path.mkdir`. Defaults to ``True``.
+    :param `**kwargs`: Additional key word arguments supplied to :func:`open()`.
 
     :raises ValueError: If unsupported file mode is used.
     :raises Exception: Any exception raised during the saving of the file.
@@ -219,13 +219,13 @@ def delta_path(base_path: Path, item_path: Path, new_base_path: Path) -> Path:
     [extended_summary]
 
 
-    :param base_path: The `Path` to be removed from `item_path`
-    :param item_path: The Path to be delta-ed
-    :param new_base_path: The new base `Path` for `item_path`.
+    :param base_path: The :py:class:`pathlib.Path` to be removed from `item_path`
+    :param item_path: The :py:class:`pathlib.Path` to be delta-ed
+    :param new_base_path: The new base :py:class:`pathlib.Path` for `item_path`.
 
-    :raises ValueError: If base_path is not a sub Path of item_path.
+    :raises ValueError: If base_path is not a sub-path of item_path.
 
-    :return: The new combined `Path`.
+    :return: The new combined path.
     """
 
     path_stub = item_path.relative_to(base_path)
@@ -257,15 +257,15 @@ def delta_paths(
     [extended_summary]
 
 
-    :param base_path: The starting `Path`.
+    :param base_path: The starting :py:class:`pathlib.Path`.
     :param glob_pattern: Glob pattern to match, using `base_path`. e.g `"*"` or `"**/*"`
     :param new_base_path: The new base path.
     :param path_filter: An additional filter to use for things that are hard to descirbe with glob.
-        Defaults to None.
+        Defaults to ``None``.
 
     :raises ValueError: `base_path` must exist and be a directory.
 
-    :yield: The new combined `Paths`.
+    :yield: The new combined paths.
     """
 
     if not base_path.is_dir():
@@ -290,11 +290,11 @@ def collect_paths(
 
     [extended_summary]
 
-    :param base_path: A starting Path
+    :param base_path: A starting :py:class:`pathlib.Path`
     :param glob_pattern: Glob pattern to match. e.g `"*"` or `"**/*"`
-    :param path_filter: A custom filter for more complex matching than can be provided by glob. Defaults to None.
+    :param path_filter: A custom filter for more complex matching than can be provided by glob. Defaults to ``None``.
     :raises ValueError: input_base_path must exist and be a directory.
-    :yield: The matched Paths.
+    :yield: The matched paths.
     """
 
     # default content filter.
