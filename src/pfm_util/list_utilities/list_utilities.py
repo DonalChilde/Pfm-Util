@@ -52,7 +52,6 @@ def wrap_range(
     :param start_index: starting value, must be  left_bound >= start_index < right_bound
     :param direction: a positive or negative integer, where positive integers increment
         to the right on the number line, and negative integers increment to the left.
-
     :raises ValueError: direction cannot be zero
     :raises ValueError: left_bound cannot be greater than right_bound
     :returns: Two range() generators chained by itertools.chain
@@ -124,7 +123,6 @@ def simple_filter(desired_value: Any) -> Callable[[Any], bool]:
 
     def filter_function(value: Any) -> bool:
         """A simple filter function that will compare a value with a previously defined desired value
-
 
         :param value: value to compare
         :returns: True for match

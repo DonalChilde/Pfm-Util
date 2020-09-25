@@ -19,13 +19,9 @@ def load_json(file_path: Path, **kwargs) -> Any:
     """
     Load a json file.
 
-    [extended_summary]
-
     :param file_path: :py:class:`pathlib.Path` to the json file.
     :param `**kwargs`: Addtional key word arguments supplied to :func:`json.load()`.
-
     :raises Exception: Any exception raised during the loading of the file, or the conversion to json.
-
     :return: The loaded json file.
     """
 
@@ -64,8 +60,6 @@ def save_json(
     :param parents: Make parent directories if they don't exist. As used by :func:`pathlib.Path.mkdir()`. Defaults to ``False``.
     :param exist_ok: Suppress exception if parent directory exists as directory. As used by :func:`pathlib.Path.mkdir`. Defaults to ``True``.
     :param `**kwargs`: Addtional key word arguments supplied to :func:`json.dump()`.
-
-
     :raises ValueError: If unsupported file mode is used.
     :raises Exception: Any exception raised during the saving of the file, or the conversion from json.
     """
@@ -107,10 +101,8 @@ def save_string(
     :param parents: Make parent directories if they don't exist. As used by :func:`pathlib.Path.mkdir()`. Defaults to ``False``.
     :param exist_ok: Suppress exception if parent directory exists as directory. As used by :func:`pathlib.Path.mkdir()`. Defaults to ``True``.
     :param `**kwargs`: Additional key word arguments supplied to :func:`open()`.
-
     :raises ValueError: If unsupported file mode is used.
     :raises Exception: Any exception raised during the saving of the file.
-
     :return: return number of characters written.
     """
     try:
@@ -152,10 +144,8 @@ def save_lines(
         Defaults to ``False``.
     :param exist_ok: Suppress exception if parent directory exists as directory. As used by :py:func:`pathlib.Path.mkdir`. Defaults to ``True``.
     :param `**kwargs`: Addtional key word arguments supplied to :func:`open()`.
-
-
-    ValueError: If unsupported file mode is used.
-    Exception: Any exception raised during the saving of the file.
+    :raises ValueError: If unsupported file mode is used.
+    :raises Exception: Any exception raised during the saving of the file.
     """
 
     try:
@@ -185,8 +175,6 @@ def save_stringables(
     r"""
     Save an iterable that can be converted to a string via :func:`str()`.
 
-    [extended_summary]
-
     :param iterable_stringable: An iterable containing objects that can be turned into
         strings with :func:`str()`.
     :param file_path: :py:class:`pathlib.Path` to saved file.
@@ -196,7 +184,6 @@ def save_stringables(
         Defaults to ``False``.
     :param exist_ok: Suppress exception if parent directory exists as directory. As used by :func:`pathlib.Path.mkdir`. Defaults to ``True``.
     :param `**kwargs`: Additional key word arguments supplied to :func:`open()`.
-
     :raises ValueError: If unsupported file mode is used.
     :raises Exception: Any exception raised during the saving of the file.
     """
@@ -216,15 +203,10 @@ def delta_path(base_path: Path, item_path: Path, new_base_path: Path) -> Path:
     """
     Removes a base path from an item, and appends result to a new path
 
-    [extended_summary]
-
-
     :param base_path: The :py:class:`pathlib.Path` to be removed from `item_path`
     :param item_path: The :py:class:`pathlib.Path` to be delta-ed
     :param new_base_path: The new base :py:class:`pathlib.Path` for `item_path`.
-
     :raises ValueError: If base_path is not a sub-path of item_path.
-
     :return: The new combined path.
     """
 
@@ -254,17 +236,12 @@ def delta_paths(
     :Example:
         Make an example here.
 
-    [extended_summary]
-
-
     :param base_path: The starting :py:class:`pathlib.Path`.
     :param glob_pattern: Glob pattern to match, using `base_path`. e.g `"*"` or `"**/*"`
     :param new_base_path: The new base path.
     :param path_filter: An additional filter to use for things that are hard to descirbe with glob.
         Defaults to ``None``.
-
     :raises ValueError: `base_path` must exist and be a directory.
-
     :yield: The new combined paths.
     """
 
@@ -287,8 +264,6 @@ def collect_paths(
 ) -> Generator[Path, None, None]:
     """
     Collect paths using base_path.glob(), and apply a filter
-
-    [extended_summary]
 
     :param base_path: A starting :py:class:`pathlib.Path`
     :param glob_pattern: Glob pattern to match. e.g `"*"` or `"**/*"`

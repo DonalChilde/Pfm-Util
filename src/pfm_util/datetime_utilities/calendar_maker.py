@@ -28,7 +28,7 @@ class CalendarMaker:
         self.end_date = end_date
         self.padded_range = get_padded_dates_in_range(start_date, end_date)
 
-    def generate_calendar_tokens(self, marked_days: List[date]):
+    def generate_calendar_tokens(self, marked_days: List[date]) -> List[Sequence[str]]:
         date_list = blank_unmarked_dates(self.padded_range, marked_days)
         week_headers = ("Mo", "Tu", "We", "Th", "Fr", "Sa", "Su")
         split_dates = split_dates_to_weeks(date_list)
@@ -49,6 +49,7 @@ class CalendarMaker:
 
 
 def get_padded_dates_in_range(start_date: date, end_date: date) -> Sequence[date]:
+    # TODO change to get_full_weeks_in_range(start,end,bow,iso)
     padded_start = beginning_of_week(start_date, 0, False)
     padded_end = end_of_week(end_date, 0, False)
     date_range = range_of_dates(padded_start, padded_end)

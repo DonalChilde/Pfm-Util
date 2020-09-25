@@ -18,12 +18,9 @@ def stringInsert():
 
 def safeStrip(value: Any) -> Any:
     """Strip whitespace from a string value, if value is a string.
-    
-    Arguments:
-        value {Any} -- possible string to strip
-    
-    Returns:
-        Any -- Stripped string if value was string, else original value.
+
+    :param value: possible string to strip
+    :returns: Stripped string if value was string, else original value.
     """
     if isinstance(value, str):
         new_value = value.strip()
@@ -34,18 +31,13 @@ def safeStrip(value: Any) -> Any:
 
 def strip_end(text: str, suffix: str, case_insensitive: bool = False) -> str:
     """Strips the suffix from a string if present.
-    
+
     https://stackoverflow.com/a/1038999
 
-    Arguments:
-        text {str} -- String to check for suffix
-        suffix {str} -- Suffix to look for.
-    
-    Keyword Arguments:
-        case_insensitive {bool} -- Do a case insensitive match. (default: {False})
-    
-    Returns:
-        str -- Suffix to look for.
+    :param text: String to check for suffix
+    :param suffix: Suffix to look for.
+    :param case_insensitive: Do a case insensitive match. Defaults to False.
+    :returns: The resulting string..
     """
     if case_insensitive:
         if not text.lower().endswith(suffix.lower()):

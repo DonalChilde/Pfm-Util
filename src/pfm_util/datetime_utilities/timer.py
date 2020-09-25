@@ -102,23 +102,18 @@ class Interval:
         return self.end - self.start
 
     def duration_string(
-        self, time_spec: Optional[str] = "seconds", with_units=True
+        self, time_spec: Optional[str] = "seconds", with_units: bool = True
     ) -> str:
         """
         [summary]
-        
-        Parameters
-        ----------
-        time_spec : Optional[str], optional
-            Units used to format the duration, by default "seconds"
-        with_units : bool, optional
-            Include duration units in the msg, by default True
-        
-        Returns
-        -------
-        str
-            [description]
+
+        [extended_summary]
+
+        :param time_spec: Units used to format the duration, defaults to "seconds"
+        :param with_units: Include duration units in the msg, defaults to True
+        :return: The string representing a duration.
         """
+
         if self.time_unit == "ns":
             formatted = self.format_ns(self.duration, time_spec)
             if with_units:
@@ -148,21 +143,13 @@ class Interval:
         Makes a string message for the last interval.
 
         Template string offers `name` and `duration_string` fields.
-        
-        Parameters
-        ----------
-        template_string : str, optional
-            The `string.Template` string used to format the message, by default uses
+
+        :param interval: [description]
+        :param template_string: The `string.Template` string used to format the message, by default uses
             template str supplied by `Timer.simple_template_string()`.
-        time_spec : {"seconds",None}, optional
-            Units used to format the duration, by default "seconds"
-        with_units : {True, False}, optional
-            Include duration units in the msg, by default True
-        
-        Returns
-        -------
-        str
-            A string describing the last interval.
+        :param time_spec: Units used to format the duration, defaults to "seconds"
+        :param with_units: Include duration units in the msg, defaults to True
+        :return: A string describing the last interval.
         """
 
         if template_string is None:
@@ -194,7 +181,8 @@ class Timer:
         pass
 
     def new_interval(
-        self, name: Optional[str] = None,
+        self,
+        name: Optional[str] = None,
     ):
         # if self._intervals[-1].name == "_end" raise valueerror
         # makes a new Interval, sets start to end of previous interval, or start of parent Timer if first interval.

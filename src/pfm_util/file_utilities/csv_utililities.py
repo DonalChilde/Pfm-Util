@@ -320,9 +320,7 @@ def write_list_of_dicts_to_csv(
     :param parents: Make parent directories if they don't exist. As used by `Path.mkdir`, by default True
     :param exist_ok: Suppress exception if parent directory exists as directory. As used by `Path.mkdir`, by default True
     :param field_names: Optionally reorder fields, by default None
-
     :return: records writen.
-
     :raises Exception: Any exception that can be raised from Path.mkdir or Path.open
     """
     try:
@@ -389,9 +387,7 @@ def write_list_to_csv(
     :param exist_ok: [description], by default True
     :param has_header: First row of supplied data is the header, by default True
     :param headers: Headers to use if not supplied in data, by default None
-
     :returns: Number of rows saved, not including a header
-
     :raises ValueError: Number of items in a row does not match number of headers.
     """
     try:

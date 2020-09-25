@@ -7,7 +7,6 @@ def percent_difference(foo: Union[int, float], bar: Union[int, float]) -> float:
 
     If the second number is 0, will return zero instead of DivisionByZero exception.
 
-
     :param foo: [description]
     :param bar: [description]
     :return: [description]
@@ -19,7 +18,6 @@ def percent_difference(foo: Union[int, float], bar: Union[int, float]) -> float:
 def safe_div(num: Union[int, float], denom: Union[int, float]) -> float:
     """
     Return 0 instead of raising DivisionByZero exception when denom is 0.
-
 
     :param num: [description]
     :param denom: [description]
