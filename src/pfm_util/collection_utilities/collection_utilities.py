@@ -194,3 +194,19 @@ def index_objects(
         else:
             result[key_field_value] = item
     return result
+
+
+def search_list_of_dicts(
+    data: List[Dict[Any, Any]],
+    search_key,
+    search_value,
+    target_key,
+    target_default_value,
+):
+    # returns target default value if unable to match search_key and or value_key
+    # TODO convert to itemgetter etc.
+    for item in data:
+        if search_key in item:
+            if item[search_key] == search_value:
+                return item.get(target_key, target_default_value)
+    return target_default_value

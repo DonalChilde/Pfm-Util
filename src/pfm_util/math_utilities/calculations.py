@@ -30,3 +30,12 @@ def safe_div(num: Union[int, float], denom: Union[int, float]) -> float:
     result = num / denom
 
     return result
+
+
+def percent_function(
+    percent: float, precision: int
+) -> Callable[[Union[int, float]], float]:
+    def func(num: Union[int, float]):
+        return round(num * percent, precision)
+
+    return func
