@@ -21,7 +21,7 @@ def generate_uuid3(uuid_dns: uuid.UUID, salt_str: Optional[str] = None) -> uuid.
 
     Optionally, the salt can be provided.
 
-    :note: I am not sure what the point of this now, and i can no longer remember what
+    :note: I am not sure what the point of this now, and I can no longer remember what
         problem I was trying to solve.
 
     :param uuid_dns: A uuid to be used for the namespace.

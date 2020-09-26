@@ -37,7 +37,7 @@ def strip_end(text: str, suffix: str, case_insensitive: bool = False) -> str:
     :param text: String to check for suffix
     :param suffix: Suffix to look for.
     :param case_insensitive: Do a case insensitive match. Defaults to False.
-    :returns: The resulting string..
+    :returns: The resulting string.
     """
     if case_insensitive:
         if not text.lower().endswith(suffix.lower()):
@@ -46,3 +46,7 @@ def strip_end(text: str, suffix: str, case_insensitive: bool = False) -> str:
         if not text.endswith(suffix):
             return text
     return text[: len(text) - len(suffix)]
+
+
+# TODO make strip_beginning
+# TODO renamee to avoid strip() confusion?
