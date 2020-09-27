@@ -64,7 +64,7 @@ def test_get_json():
     asyncio.run(runner.do_queue(actions, 5))
     print(actions[0])
     assert isinstance(action.context["response_json"], list)
-    assert len(action.context["response_json"]) == 105
+    assert len(action.context["response_json"]) == 106
 
 
 # def test_get_region_orders_text():
