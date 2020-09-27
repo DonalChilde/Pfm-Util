@@ -11,8 +11,8 @@ from typing import (
     Optional,
     Sequence,
     Tuple,
-    Union,
     TypeVar,
+    Union,
 )
 
 #### setting up logger ####

@@ -1,4 +1,5 @@
 import logging
+
 import pytest
 
 from pfm_util.math_utilities import calculations

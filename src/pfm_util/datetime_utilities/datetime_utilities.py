@@ -1,6 +1,7 @@
 import logging
 from datetime import date, datetime, timedelta, timezone
 from typing import Sequence
+
 from dateutil import tz
 
 from pfm_util.list_utilities.list_utilities import distance_in_list, simple_filter

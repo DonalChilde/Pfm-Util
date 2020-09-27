@@ -1,4 +1,4 @@
-from typing import Union, Callable
+from typing import Callable, Union
 
 
 def percent_difference(foo: Union[int, float], bar: Union[int, float]) -> float:

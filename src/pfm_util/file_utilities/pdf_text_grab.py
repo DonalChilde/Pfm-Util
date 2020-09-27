@@ -1,7 +1,8 @@
-from pathlib import Path
-from PyPDF4 import PdfFileReader
-from typing import Tuple, Optional, List, Callable
 from dataclasses import dataclass
+from pathlib import Path
+from typing import Callable, List, Optional, Tuple
+
+from PyPDF4 import PdfFileReader
 
 
 @dataclass

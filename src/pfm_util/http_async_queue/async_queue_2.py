@@ -4,13 +4,13 @@ from string import Template
 from time import perf_counter_ns
 from typing import (
     Any,
+    ByteString,
     Dict,
     Iterable,
     List,
     Optional,
     Sequence,
     Type,
-    ByteString,
     Union,
 )
 
