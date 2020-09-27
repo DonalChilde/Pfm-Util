@@ -15,7 +15,7 @@ commands =
 deps =
     pytest
     pytest-cov
-    -rrequirements.txt
+    -r./requirements.txt
 
 [testenv:clean]
 deps = coverage
