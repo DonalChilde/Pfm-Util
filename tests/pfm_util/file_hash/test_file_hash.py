@@ -1,3 +1,7 @@
+"""
+
+"""
+# TODO test raising exceptions
 import hashlib
 import string
 from pathlib import Path
@@ -5,9 +9,6 @@ from pathlib import Path
 import pytest
 
 from pfm_util.file_hash import file_hash
-
-
-# TODO test raising exceptions
 
 
 @pytest.fixture(scope="function")
