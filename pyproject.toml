@@ -6,26 +6,7 @@ build-backend = "setuptools.build_meta"
 profile = "black"
 src_paths = ["src", "test"]
 
-[tool.tox]
-legacy_tox_ini = """
-[tox]
-envlist = clean,py38
 
-[testenv]
-commands =
-    # NOTE: you can run any command line tool here - not just tests
-    pytest --cov=pfm_util tests/ --cov-append --cov-report=html --cov-report=term
-
-deps =
-    pytest
-    pytest-cov
-    -r./requirements.txt
-
-[testenv:clean]
-deps = coverage
-skip_install = true
-commands = coverage erase
-"""
 
 # [tool.coverage.run]
 # branch = True

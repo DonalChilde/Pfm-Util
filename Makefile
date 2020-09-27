@@ -61,6 +61,19 @@ lint: ## check style with pylint and mypy
 	pylint src/${PACKAGE} tests
 	mypy src/${PACKAGE}
 
+check-format: ## check source file format with isort and black
+	isort ./src --df
+	isort ./tests --df
+	black ./src --check
+	black ./tests --check
+
+isort: ## isort source files
+	isort ./src
+	isort ./tests
+
+black:
+	black ./src
+	black ./tests
 
 test: ## run tests quickly with the default Python
 	pytest
