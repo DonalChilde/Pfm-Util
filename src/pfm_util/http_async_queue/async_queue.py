@@ -8,6 +8,7 @@ Returns
 
     TODO Track retries and total actions, log actions per second. subclass Queue?
 """
+
 import asyncio
 import copy
 import csv
@@ -220,7 +221,9 @@ class HttpAction:
     async def handle_results(self, queue, response):
         for handler in self.result_handlers:
             await handler.handle_result(
-                self, queue, response,
+                self,
+                queue,
+                response,
             )
 
     async def do_action(self, queue, session: aiohttp.ClientSession):
@@ -467,13 +470,13 @@ class SingletonListToListOfDicts(HttpResultHandlerABC):
 
 def save_string(data: str, file_path: Path) -> bool:
     """Save a string. Makes parent directories if they don't exist.
-    
+
     Traps all errors and prints them to std out.
 
     Arguments:
         data {str} -- The string to save
         file_path {Path} -- Path to the saved file.
-    
+
     Returns:
         bool -- True if successful
     """
@@ -498,7 +501,7 @@ def write_list_to_csv(
 ) -> int:
     """
     Writes an iterator of lists to a file in csv format.
-    
+
     Parameters
     ----------
     data : Iterable[Sequence]
@@ -513,12 +516,12 @@ def write_list_to_csv(
         First row of supplied data is the header, by default True
     headers : Optional[Sequence[str]], optional
         Headers to use if not supplied in data, by default None
-    
+
     Returns
     -------
     int
         Rows saved, not including a header
-    
+
     Raises
     ------
     ValueError

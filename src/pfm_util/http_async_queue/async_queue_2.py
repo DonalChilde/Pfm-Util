@@ -166,7 +166,9 @@ class HttpActionText:
     async def handle_results(self, queue):
         for handler in self.result_handlers:
             await handler.handle_result(
-                self, queue, self.response,
+                self,
+                queue,
+                self.response,
             )
 
     async def do_action(self, queue, session: aiohttp.ClientSession):

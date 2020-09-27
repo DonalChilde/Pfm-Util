@@ -21,23 +21,23 @@ def get_page_content(
 ) -> List[PageContent]:
     """Get the text from a pdf file.
 
-    Get the text from each page of a pdf file, with optional limits to page range, and flag filters for 
+    Get the text from each page of a pdf file, with optional limits to page range, and flag filters for
     start, end, and page content. Returns a PageContent containing page_number and page_text.
-    
+
     Arguments:
         file_path {Path} -- [description]
-    
+
     Keyword Arguments:
         start_range {int} -- [description] (default: {0})
         end_range {int} -- [description] (default: {-1})
         start_filter {Optional[Callable[[int, str], bool]]} -- [description] (default: {None})
         end_filter {Optional[Callable[[int, str], bool]]} -- [description] (default: {None})
         content_filter {Optional[Callable[[int, str], bool]]} -- [description] (default: {None})
-    
+
     Raises:
         ValueError: [description]
         ValueError: [description]
-    
+
     Returns:
         List[PageContent] -- [description]
     """
@@ -87,4 +87,3 @@ def get_page_content(
                 retval.append(PageContent(x, page_text))
                 continue
     return retval
-
