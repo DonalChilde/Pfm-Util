@@ -57,7 +57,7 @@ lint: ## check style with pylint
 	#mypy src/flask_base
 	mypy src/flask_base/config.py
 	pylint src/flask_base tests
-	
+
 
 test: ## run tests quickly with the default Python
 	pytest

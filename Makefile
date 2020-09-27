@@ -60,7 +60,7 @@ clean-test: ## remove test and coverage artifacts
 lint: ## check style with pylint and mypy
 	pylint src/${PACKAGE} tests
 	mypy src/${PACKAGE}
-	
+
 
 test: ## run tests quickly with the default Python
 	pytest
