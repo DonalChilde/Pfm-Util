@@ -175,7 +175,9 @@ def file_hasher(file_path: Path, hash_method: str) -> FileHash:
     :returns: A NamedTuple containing hash results.
     """
     hasher = get_hasher(hash_method)
-    file_hash_str: str = calculate_file_hash_from_path(file_path, hasher)  # type: ignore
+    file_hash_str: str = calculate_file_hash_from_path(
+        file_path, hasher
+    )  # type: ignore
     return FileHash(file_path, file_hash_str, hash_method)
 
 

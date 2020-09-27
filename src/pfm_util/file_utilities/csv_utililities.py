@@ -229,10 +229,7 @@ class TupleRecordReader(RecordReader):
 
 class TupleRecordWriter(RecordWriter):
     def __init__(
-        self,
-        record_stream,
-        remapped_headers=None,
-        headers_in_first_record=True,
+        self, record_stream, remapped_headers=None, headers_in_first_record=True
     ):
         self.headers_in_first_record = headers_in_first_record
         super().__init__(record_stream, remapped_headers)

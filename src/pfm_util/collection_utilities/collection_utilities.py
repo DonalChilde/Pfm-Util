@@ -77,9 +77,7 @@ def optional_object(
 
 
 def sort_in_place(
-    data: List[T],
-    instructions: Sequence[SortInstruction],
-    use_itemgetter: bool = True,
+    data: List[T], instructions: Sequence[SortInstruction], use_itemgetter: bool = True
 ):
     """
     Sort a list of objects in place, e.g a list of lists.
@@ -132,17 +130,9 @@ def sort_to_new_list(
             indexer = attrgetter(instruction.sort_key)  # type: ignore
         # index == 0 to handle iterable case, and first sort for sorted_list variable
         if index == 0:
-            sorted_list = sorted(
-                data,
-                key=indexer,
-                reverse=instruction.descending,
-            )
+            sorted_list = sorted(data, key=indexer, reverse=instruction.descending)
             continue
-        sorted_list = sorted(
-            sorted_list,
-            key=indexer,
-            reverse=instruction.descending,
-        )
+        sorted_list = sorted(sorted_list, key=indexer, reverse=instruction.descending)
     return sorted_list
 
 

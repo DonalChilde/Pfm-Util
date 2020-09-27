@@ -220,11 +220,7 @@ class HttpAction:
 
     async def handle_results(self, queue, response):
         for handler in self.result_handlers:
-            await handler.handle_result(
-                self,
-                queue,
-                response,
-            )
+            await handler.handle_result(self, queue, response)
 
     async def do_action(self, queue, session: aiohttp.ClientSession):
         logger.debug("Doing action in %s", self.name)

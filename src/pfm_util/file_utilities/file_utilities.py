@@ -248,9 +248,7 @@ def delta_paths(
     if not base_path.is_dir():
         raise ValueError(f"{base_path} - Not a directory or does not exist.")
     paths_in = collect_paths(
-        base_path=base_path,
-        glob_pattern=glob_pattern,
-        path_filter=path_filter,
+        base_path=base_path, glob_pattern=glob_pattern, path_filter=path_filter
     )
     for path_in in paths_in:
         path_out = delta_path(base_path, path_in, new_base_path)

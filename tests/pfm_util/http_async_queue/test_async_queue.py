@@ -46,10 +46,7 @@ def test_get_json():
         url_template=url_template,
         request_parameters=request_parameters,
         # store_response_text=True,
-        result_handlers=[
-            PrintResponse(),
-            ResponseToJson(),
-        ],
+        result_handlers=[PrintResponse(), ResponseToJson()],
         context={},
     )
     # action.context["save_path"] = Path("~/tmp/region_ids.json").expanduser()

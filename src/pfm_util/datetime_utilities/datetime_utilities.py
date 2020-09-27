@@ -88,10 +88,7 @@ def end_of_week(date_: date, week_starts_on: int = 7, iso: bool = True) -> date:
     :return: The last day of the week that contains `date_`
     """
     logging.debug(
-        "end_of_week(date_=%s, week_starts_on=%s, iso=%s)",
-        date_,
-        week_starts_on,
-        iso,
+        "end_of_week(date_=%s, week_starts_on=%s, iso=%s)", date_, week_starts_on, iso
     )
     s_o_w = beginning_of_week(date_=date_, week_starts_on=week_starts_on, iso=iso)
     e_o_w = s_o_w + timedelta(hours=24 * 6)

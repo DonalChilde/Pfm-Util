@@ -25,10 +25,7 @@ def hash_test_data(tmp_path):
     test_data = {
         "test_data_root_dir": test_data_root_dir,
         "test_files": {
-            "test_data_1": {
-                "data": b"",
-                "test_path": test_path_1,
-            },
+            "test_data_1": {"data": b"", "test_path": test_path_1},
             "test_data_2": {
                 "data": b"this is a single line of text",
                 "test_path": test_path_2,

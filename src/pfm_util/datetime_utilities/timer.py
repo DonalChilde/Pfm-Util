@@ -180,10 +180,7 @@ class Timer:
 
         pass
 
-    def new_interval(
-        self,
-        name: Optional[str] = None,
-    ):
+    def new_interval(self, name: Optional[str] = None):
         # if self._intervals[-1].name == "_end" raise valueerror
         # makes a new Interval, sets start to end of previous interval, or start of parent Timer if first interval.
         # sets end to perf_counter_ns()

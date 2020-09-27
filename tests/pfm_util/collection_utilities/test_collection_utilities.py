@@ -66,10 +66,7 @@ def test_sort_in_place(caplog):
     data_lists = [list_1, list_2, list_2_a, list_2_b, list_3]
     primary_sort = collection_utilities.SortInstruction(sort_key=1)
     secondary_sort = collection_utilities.SortInstruction(sort_key=2)
-    instructions = [
-        primary_sort,
-        secondary_sort,
-    ]
+    instructions = [primary_sort, secondary_sort]
     collection_utilities.sort_in_place(data_lists, instructions)
     logging.debug("Sorted Lists: %s", data_lists)
     assert data_lists[0] == list_2_a
@@ -122,10 +119,7 @@ def test_sort_to_new_list(caplog):
     data_lists = [list_1, list_2, list_2_a, list_2_b, list_3]
     primary_sort = collection_utilities.SortInstruction(sort_key=1)
     secondary_sort = collection_utilities.SortInstruction(sort_key=2)
-    instructions = [
-        primary_sort,
-        secondary_sort,
-    ]
+    instructions = [primary_sort, secondary_sort]
     new_list = collection_utilities.sort_to_new_list(data_lists, instructions)
     logging.debug("Sorted Lists: %s", new_list)
     assert new_list[0] == list_2_a

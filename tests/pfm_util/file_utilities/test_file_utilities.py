@@ -15,11 +15,7 @@ def test_path_root(tmp_path_factory):
 
 @pytest.fixture(scope="module")
 def json_data():
-    data = {
-        "key1": "value1",
-        "key2": "value2",
-        "key3": "value3",
-    }
+    data = {"key1": "value1", "key2": "value2", "key3": "value3"}
     return data
 
 

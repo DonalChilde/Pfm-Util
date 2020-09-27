@@ -14,9 +14,7 @@ def test_get(caplog):
     host = "https://esi.evetech.net"
     url = host + "/v1/universe/types/"
     action = HttpActionText(name="test", method="get", url_template=url, url_params={})
-    actions = [
-        action,
-    ]
+    actions = [action]
 
     run_actions(actions, workers=1)
     assert action.response.status == 200
@@ -27,9 +25,7 @@ def test_get_404(caplog):
     host = "https://esi.evetech.net"
     url = host + "/v1/universe/types2/"
     action = HttpActionText(name="test", method="get", url_template=url, url_params={})
-    actions = [
-        action,
-    ]
+    actions = [action]
 
     run_actions(actions, workers=1)
     assert action.response.status == 404
