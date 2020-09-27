@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from datetime import datetime
 from distutils.util import strtobool
-from typing import Any, Callable, Sequence, Dict
+from typing import Any, Callable, Dict, Sequence
 
 from pfm_util.file_utilities.csv_utililities import (
     RecordReader,
