@@ -14,5 +14,6 @@ pylint
 mypy
 doc8
 rstcheck
+pre-commit
 
 python-dateutil
