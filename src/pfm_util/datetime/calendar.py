@@ -1,22 +1,9 @@
+# TODO change chunk use to more-itertools
 from datetime import date
 from typing import List, Sequence, Tuple
 
 from pfm_util.collection.misc import chunk
-from pfm_util.datetime.datetime_utilities import (
-    beginning_of_week,
-    end_of_week,
-    range_of_dates,
-)
-
-# TODO change chunk use to more-itertools
-
-# class CalendarDate:
-#     date: arrow
-#     tags: List[str]
-
-
-# class Calendar:
-#     pass
+from pfm_util.datetime.datetime import beginning_of_week, end_of_week, range_of_dates
 
 
 class CalendarMaker:

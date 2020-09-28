@@ -18,6 +18,8 @@ from typing import (
 
 VERSION = "1.0.0"
 
+# TODO split file readers to file.read_write.
+
 
 def hash_a_byte_str_iterator(
     bytes_iterator: Iterator[ByteString], hasher: Any, as_hex_str: bool = False
@@ -46,9 +48,7 @@ def file_as_block_iterator(
 
     https://stackoverflow.com/a/3431835/105844
 
-    Parameters
-    ----------
-    :param file_handle: The handle for  file opened in binary mode.
+    :param file_handle: The handle for file opened in binary mode.
     :param block_size: The size of the block bytes to read from the file, by default 65536
     :yields: An iterator of bytes.
     """
@@ -161,7 +161,8 @@ class FileHash(NamedTuple):
     hash_method: str
 
     def __repr__(self):
-        return f"<FileHash(file_path={self.file_path}, file_hash={self.file_hash}, hash_method={self.hash_method})>"
+        return f"<FileHash(file_path={self.file_path}, file_hash={self.file_hash}, \
+        hash_method={self.hash_method})>"
 
 
 def file_hasher(file_path: Path, hash_method: str) -> FileHash:

@@ -24,9 +24,9 @@ def parse_HHMMSS(
     HHHMMSS = (
         r"^(?P<hours>[0-9]+([,.][0-9]+)?)("
         + hm_separator
-        + r"(?P<minutes>[0-6][0-9])("
+        + r"(?P<minutes>[0-5][0-9])("
         + ms_separator
-        + r"(?P<seconds>[0-6][0-9](\.[0-9]+)?))?)?$"
+        + r"(?P<seconds>[0-5][0-9](\.[0-9]+)?))?)?$"
     )
     pattern = re.compile(HHHMMSS)
     result = pattern.match(duration_string)

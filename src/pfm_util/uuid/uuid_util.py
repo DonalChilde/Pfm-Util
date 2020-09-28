@@ -37,7 +37,7 @@ def generate_uuid3(uuid_dns: uuid.UUID, salt_str: Optional[str] = None) -> uuid.
 
 def deserialize_uuid(uuid_string: Union[str, None]) -> Union[uuid.UUID, None]:
     """
-    [summary]
+    Deserialize a uuid. Used with db's? sqlite?
 
     :param uuid_string: [description]
     :return: [description]

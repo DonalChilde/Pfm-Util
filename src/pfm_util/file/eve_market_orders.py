@@ -3,11 +3,7 @@ from datetime import datetime
 from distutils.util import strtobool
 from typing import Any, Callable, Dict, Sequence
 
-from pfm_util.file_utilities.csv_utililities import (
-    RecordReader,
-    RecordWriter,
-    RemappedHeader,
-)
+from pfm_util.file.csv_record import RecordReader, RecordWriter, RemappedHeader
 
 
 @dataclass

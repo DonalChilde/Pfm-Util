@@ -1,6 +1,6 @@
 from datetime import date, datetime, timedelta
 
-from pfm_util.datetime.calendar_maker import (
+from pfm_util.datetime.calendar import (
     CalendarMaker,
     blank_unmarked_dates,
     get_padded_dates_in_range,
