@@ -8,7 +8,7 @@ __version__ = "1.3.0"
 import json
 import logging
 from pathlib import Path
-from typing import Any, Callable, Generator, Iterable, Optional
+from typing import Any, Iterable
 
 #### setting up logger ####
 logger = logging.getLogger(__name__)

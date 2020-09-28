@@ -282,7 +282,7 @@ class ResponseToJson(HttpResultHandlerABC):
                 json_data = await response.json()
                 # assert len(json_data) > 1
                 action.context["response_json"] = json_data
-            except:
+            except Exception:
                 logger.exception(
                     "Error raised trying to get json from response. \nAction: %s, \nResponse: %s, \nJson_data: %s \ntext_data: %s",
                     action,

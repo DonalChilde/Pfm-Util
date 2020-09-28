@@ -1,19 +1,7 @@
 import logging
 from dataclasses import dataclass
 from operator import attrgetter, itemgetter
-from typing import (
-    Any,
-    Callable,
-    Dict,
-    Iterable,
-    List,
-    NamedTuple,
-    Optional,
-    Sequence,
-    Tuple,
-    TypeVar,
-    Union,
-)
+from typing import Any, Callable, Dict, Iterable, List, Sequence, TypeVar, Union
 
 #### setting up logger ####
 logger = logging.getLogger(__name__)

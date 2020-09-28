@@ -10,18 +10,7 @@ from abc import ABC, abstractmethod
 from collections import namedtuple
 from dataclasses import dataclass
 from pathlib import Path
-from typing import (
-    Any,
-    Callable,
-    Dict,
-    Generator,
-    Iterable,
-    NamedTuple,
-    Optional,
-    Sequence,
-    TextIO,
-    Type,
-)
+from typing import Any, Callable, Generator, Iterable, Optional, Sequence, Type
 
 #### setting up logger ####
 logger = logging.getLogger(__name__)

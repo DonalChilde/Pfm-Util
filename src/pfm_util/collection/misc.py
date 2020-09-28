@@ -1,21 +1,6 @@
 import logging
-from dataclasses import dataclass
 from itertools import chain, islice, repeat
-from operator import attrgetter, itemgetter
-from typing import (
-    Any,
-    Callable,
-    Dict,
-    Iterable,
-    Iterator,
-    List,
-    NamedTuple,
-    Optional,
-    Sequence,
-    Tuple,
-    TypeVar,
-    Union,
-)
+from typing import Callable, Iterator, TypeVar, Union
 
 #### setting up logger ####
 logger = logging.getLogger(__name__)

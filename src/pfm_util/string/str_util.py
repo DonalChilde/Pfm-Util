@@ -3,7 +3,7 @@
 Version: 1.0
 Last_Edit: 2019-10-21T14:45:20Z
 """
-from typing import Any, Tuple, Union
+from typing import Any
 
 
 def stringInsert():

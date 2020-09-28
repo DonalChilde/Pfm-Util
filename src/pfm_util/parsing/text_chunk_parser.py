@@ -1,7 +1,7 @@
 from dataclasses import dataclass
-from typing import Any, Callable, Dict, List, Optional, Sequence, Tuple
+from typing import Any, Callable, Dict, List, Optional, Sequence
 
-from pyparsing import ParseException, ParserElement, ParseResults
+from pyparsing import ParseException, ParserElement
 
 
 # pylint: disable=invalid-name
