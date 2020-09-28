@@ -1,40 +1,13 @@
 import logging
 from dataclasses import dataclass
+from typing import Dict, List, Optional
 
-import pytest
-
-from pfm_util.list_utilities.list_utilities import (
-    distance_in_list,
-    simple_filter,
-    wrap_range,
-)
+from pfm_util.collection_utilities.search import distance_in_list
+from pfm_util.filter.filter import simple_filter
 
 #### setting up logger ####
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.NullHandler())
-
-
-def test_wrap_range(caplog):
-    # caplog.set_level(logging.DEBUG)
-    range_gen = wrap_range(0, 10, 6, 1)
-    as_list = list(range_gen)
-    expected = [6, 7, 8, 9, 0, 1, 2, 3, 4, 5]
-    assert as_list == expected
-
-    range_gen = wrap_range(0, 10, 6, -1)
-    as_list = list(range_gen)
-    expected = [6, 5, 4, 3, 2, 1, 0, 9, 8, 7]
-    assert as_list == expected
-
-    range_gen = wrap_range(-2, 10, 6, -1)
-    as_list = list(range_gen)
-    expected = [6, 5, 4, 3, 2, 1, 0, -1, -2, 9, 8, 7]
-    assert as_list == expected
-
-    range_gen = wrap_range(1, 8, 4, -1)
-    as_list = list(range_gen)
-    expected = [4, 3, 2, 1, 7, 6, 5]
-    assert as_list == expected
 
 
 def test_distance_in_list(caplog):

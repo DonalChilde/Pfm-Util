@@ -1,10 +1,11 @@
 import logging
-from datetime import date, datetime, timedelta, timezone
+from datetime import date, datetime, timedelta
 from typing import Sequence
 
 from dateutil import tz
 
-from pfm_util.list_utilities.list_utilities import distance_in_list, simple_filter
+from pfm_util.collection_utilities.search import distance_in_list
+from pfm_util.filter.filter import simple_filter
 
 #### setting up logger ####
 logger = logging.getLogger(__name__)

@@ -21,59 +21,11 @@ logger.addHandler(logging.NullHandler())
 
 T = TypeVar("T")
 
-SortSpec = NamedTuple("SortSpec", [("sort_key", Union[str, int]), ("reversed", bool)])
-
 
 @dataclass
 class SortInstruction:
     sort_key: Union[str, int]
     descending: bool = False
-
-
-def optional_object(
-    argument: Union[None, T], object_factory: Callable[..., T], *args, **kwargs
-) -> T:
-    """
-    A convenience method for initializing optional arguments.
-
-    Meant to be used when solving the problem of passing an object, e.g. a List
-    when the object is expected to be a passed in list or a default empty list.
-    So make the default value None, and call this function to initialize the object.
-
-    :example:
-    @dataclass
-    class SomeData:
-        data_1: int
-        data_2: str
-
-    class MyClass:
-        def __init__(
-            self,
-            arg1: int,
-            arg2: Optional[List[str]] = None,
-            arg3: Optional[Dict[str, int]] = None,
-            arg4: Optional[SomeData] = None,
-        ):
-            default_somedata = {"data_1": 1, "data_2": "two"}
-            self.arg1 = arg1
-            self.arg2: List[str] = collection_utilities.optional_object(
-                arg2, list, ["a", "b", "c"]
-            )
-            self.arg3: Dict[str, int] = collection_utilities.optional_object(arg3, dict)
-            self.arg4: SomeData = collection_utilities.optional_object(
-                arg4, SomeData, **default_somedata
-            )
-
-    :param argument: An argument that is an object that may be None.
-    :param object_factory: Factory function used to create the object.
-    :param `*args`: Optional arguments passed to factory function.
-    :param `**kwargs`: Optional keyword arguments passed to factory function.
-    :return: The initialized object.
-    """
-
-    if argument is None:
-        return object_factory(*args, **kwargs)
-    return argument
 
 
 def sort_in_place(
@@ -184,19 +136,3 @@ def index_objects(
         else:
             result[key_field_value] = item
     return result
-
-
-def search_list_of_dicts(
-    data: List[Dict[Any, Any]],
-    search_key,
-    search_value,
-    target_key,
-    target_default_value,
-):
-    # returns target default value if unable to match search_key and or value_key
-    # TODO convert to itemgetter etc.
-    for item in data:
-        if search_key in item:
-            if item[search_key] == search_value:
-                return item.get(target_key, target_default_value)
-    return target_default_value

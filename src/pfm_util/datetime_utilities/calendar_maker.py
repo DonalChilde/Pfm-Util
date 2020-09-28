@@ -1,12 +1,12 @@
 from datetime import date
 from typing import List, Sequence, Tuple
 
+from pfm_util.collection_utilities.misc import chunk
 from pfm_util.datetime_utilities.datetime_utilities import (
     beginning_of_week,
     end_of_week,
     range_of_dates,
 )
-from pfm_util.list_utilities.list_utilities import chunk
 
 # TODO change chunk use to more-itertools
 
