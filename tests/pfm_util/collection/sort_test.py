@@ -1,6 +1,6 @@
 import logging
 
-from pfm_util.collection_utilities.sort import (
+from pfm_util.collection.sort import (
     SortInstruction,
     index_objects,
     sort_in_place,

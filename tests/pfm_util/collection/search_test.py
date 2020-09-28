@@ -2,7 +2,7 @@ import logging
 from dataclasses import dataclass
 from typing import Dict, List, Optional
 
-from pfm_util.collection_utilities.search import distance_in_list
+from pfm_util.collection.search import distance_in_list
 from pfm_util.filter.filter import simple_filter
 
 #### setting up logger ####

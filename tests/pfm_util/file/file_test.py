@@ -4,7 +4,7 @@ from typing import Sequence
 
 import pytest
 
-from pfm_util.file_utilities import file_utilities
+from pfm_util.file import file_utilities
 
 
 @pytest.fixture(scope="module")

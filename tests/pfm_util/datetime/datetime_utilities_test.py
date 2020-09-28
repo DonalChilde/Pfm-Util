@@ -4,7 +4,7 @@ from datetime import date, datetime, timedelta
 
 import dateutil
 
-from pfm_util.datetime_utilities.datetime_utilities import (
+from pfm_util.datetime.datetime_utilities import (
     beginning_of_week,
     end_of_week,
     range_of_dates,

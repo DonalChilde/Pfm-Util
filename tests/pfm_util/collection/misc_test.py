@@ -2,7 +2,7 @@ import logging
 from dataclasses import dataclass
 from typing import Dict, List, Optional
 
-from pfm_util.collection_utilities.misc import optional_object, wrap_range
+from pfm_util.collection.misc import optional_object, wrap_range
 
 #### setting up logger ####
 logger = logging.getLogger(__name__)

@@ -15,7 +15,7 @@ from typing import (
     Union,
 )
 
-from pfm_util.collection_utilities.misc import wrap_range
+from pfm_util.collection.misc import wrap_range
 
 #### setting up logger ####
 logger = logging.getLogger(__name__)

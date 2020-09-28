@@ -2,10 +2,7 @@ from datetime import timedelta
 
 import pytest
 
-from pfm_util.datetime_utilities.timedelta_util import (
-    HHHMMSS_to_seconds_int,
-    parse_HHMMSS,
-)
+from pfm_util.datetime.timedelta_util import HHHMMSS_to_seconds_int, parse_HHMMSS
 
 
 def test_HHHMMSS_to_seconds():
