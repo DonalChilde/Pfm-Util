@@ -56,23 +56,18 @@ def beginning_of_week(date_: date, week_starts_on: int = 7, iso: bool = True) ->
         iso,
     )
     if iso:
-        start_index = 1
-        end_index = 8
         dow_index = date_.isoweekday() - 1
+        dow_int = [1, 2, 3, 4, 5, 6, 7]
     else:
-        start_index = 0
-        end_index = 7
         dow_index = date_.weekday()
-    week_index = list(range(start_index, end_index, 1))
-    if week_starts_on not in week_index:
+        dow_int = [0, 1, 2, 3, 4, 5, 6]
+    if week_starts_on not in dow_int:
         raise ValueError(f"week_starts_on of {week_starts_on} is not valid. iso={iso}")
     distance, _ = distance_in_list(
-        week_index, dow_index, -1, simple_filter(week_starts_on)
+        dow_int, dow_index, -1, simple_filter(week_starts_on)
     )
-    if distance is not None:
-        new_date = date_ - timedelta(hours=24 * distance)
-        return new_date
-    raise ValueError("could not find date.")
+    new_date = date_ - timedelta(hours=24 * distance)  # type: ignore
+    return new_date
 
 
 def end_of_week(date_: date, week_starts_on: int = 7, iso: bool = True) -> date:
