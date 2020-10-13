@@ -116,3 +116,7 @@ def test_distance_in_list(caplog):
             input_data.step,
         )
         assert distance == input_data.expected_distance
+
+    distance, index = distance_in_list(list_data_str, 4, 1, simple_filter("Not Here"))
+    assert distance is None
+    assert index is None

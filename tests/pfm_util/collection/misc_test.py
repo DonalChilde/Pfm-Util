@@ -2,6 +2,8 @@ import logging
 from dataclasses import dataclass
 from typing import Dict, List, Optional
 
+import pytest
+
 from pfm_util.collection.misc import optional_object, wrap_range
 
 #### setting up logger ####
@@ -65,3 +67,10 @@ def test_wrap_range(caplog):
     as_list = list(range_gen)
     expected = [4, 3, 2, 1, 7, 6, 5]
     assert as_list == expected
+
+    # zero in direction
+    with pytest.raises(ValueError):
+        range_gen = wrap_range(1, 8, 4, 0)
+    # left bound greater than right bound
+    with pytest.raises(ValueError):
+        range_gen = wrap_range(8, 1, 4, 1)

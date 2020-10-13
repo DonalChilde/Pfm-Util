@@ -1,5 +1,7 @@
 import logging
 
+import pytest
+
 from pfm_util.collection.sort import (
     SortInstruction,
     index_objects,
@@ -62,6 +64,12 @@ def test_sort_in_place(caplog):
     sort_in_place(data_lists, instructions, use_itemgetter=False)
     logging.debug("Sorted Lists: %s", data_lists)
     assert data_lists[0] == data_3
+
+    # No sort method
+    with pytest.raises(AttributeError):
+        no_sort = int
+        primary_sort = SortInstruction(sort_key="data_2", descending=True)
+        sort_in_place(no_sort, [primary_sort], use_itemgetter=True)
 
 
 def test_sort_to_new_list(caplog):

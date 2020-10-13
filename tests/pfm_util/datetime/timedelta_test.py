@@ -2,7 +2,11 @@ from datetime import timedelta
 
 import pytest
 
-from pfm_util.datetime.timedelta import HHHMMSS_to_seconds_int, parse_HHMMSS
+from pfm_util.datetime.timedelta import (
+    HHHMMSS_to_seconds_int,
+    parse_HHMMSS,
+    split_timedelta,
+)
 
 
 def test_HHHMMSS_to_seconds():
@@ -84,3 +88,25 @@ def test_parse_HHMMSS():
 
     with pytest.raises(ValueError):
         assert parse_HHMMSS("34:50:70")
+
+
+def test_td_divmod():
+    delta = timedelta(days=5, hours=12, seconds=35, microseconds=6)
+    HOUR = timedelta(hours=1)
+    hours = delta / HOUR
+    assert int(hours) == 132
+    hours, rem = divmod(delta, HOUR)
+    assert hours == 132
+
+
+def test_split_timedelta():
+    split_delta = {
+        "days": 5,
+        "hours": 12,
+        "minutes": 4,
+        "seconds": 35,
+        "microseconds": 6,
+    }
+    delta = timedelta(**split_delta)
+    split = split_timedelta(delta)
+    assert split == split_delta

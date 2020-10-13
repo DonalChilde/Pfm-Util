@@ -3,6 +3,7 @@ from dataclasses import dataclass
 from datetime import date, datetime, timedelta
 
 import dateutil
+import pytest
 
 from pfm_util.datetime.datetime import (
     beginning_of_week,
@@ -126,6 +127,9 @@ def test_beginning_of_week(caplog):
                 item.test_date.weekday(),
                 item.test_date.strftime("%a"),
             )
+    # check for invalid week_starts_on
+    with pytest.raises(ValueError):
+        beginning_of_week(date(2020, 1, 1), 9, True)
 
 
 def test_end_of_week(caplog):

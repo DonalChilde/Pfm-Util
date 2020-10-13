@@ -2,7 +2,7 @@ import logging
 
 import pytest
 
-from pfm_util.async_lib.http_queue_2 import HttpActionText, HttpQueueRunner, run_actions
+from pfm_util.async_lib.http_queue_2 import HttpActionText, run_actions
 
 
 def test_get(caplog):

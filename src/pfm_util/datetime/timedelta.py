@@ -1,7 +1,7 @@
 import re
 from dataclasses import dataclass
 from datetime import timedelta
-from typing import Optional
+from typing import Dict, Optional
 
 # HHHMMSS = r"(?P<hours>[0-9]+([,.][0-9]+)?)"
 
@@ -111,6 +111,31 @@ class TimeDeltaSplit:
             seconds=seconds,
             microseconds=microseconds,
         )
+
+
+def split_timedelta(delta: timedelta) -> Dict[str, int]:
+    """
+    Split a time delta to a dict of days, hours, minutes,seconds, microseconds.
+    https://stackoverflow.com/a/17847006/105844
+
+    [extended_summary]
+
+    :param delta: [description]
+    :return: [description]
+    """
+    abs_delta = abs(delta)
+    days, rem = divmod(abs_delta, timedelta(days=1))
+    hours, rem = divmod(rem, timedelta(hours=1))
+    minutes, rem = divmod(rem, timedelta(minutes=1))
+    seconds = rem.seconds
+    microseconds = rem.microseconds
+    return {
+        "days": days,
+        "hours": hours,
+        "minutes": minutes,
+        "seconds": seconds,
+        "microseconds": microseconds,
+    }
 
 
 # def timedelta_split(timeDelta: timedelta) -> TimeDeltaSplit:

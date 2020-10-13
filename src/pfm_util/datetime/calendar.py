@@ -2,7 +2,9 @@
 from datetime import date
 from typing import List, Sequence, Tuple
 
-from pfm_util.collection.misc import chunk
+from more_itertools import chunked
+
+# from pfm_util.collection.misc import chunk
 from pfm_util.datetime.datetime import beginning_of_week, end_of_week, range_of_dates
 
 
@@ -15,9 +17,9 @@ class CalendarMaker:
         self.end_date = end_date
         self.padded_range = get_padded_dates_in_range(start_date, end_date)
 
-    def generate_calendar_tokens(self, marked_days: List[date]) -> List[Sequence[str]]:
+    def generate_calendar_tokens(self, marked_days: List[date]) -> List[List[str]]:
         date_list = blank_unmarked_dates(self.padded_range, marked_days)
-        week_headers = ("Mo", "Tu", "We", "Th", "Fr", "Sa", "Su")
+        week_headers = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"]
         split_dates = split_dates_to_weeks(date_list)
         split_dates.insert(0, week_headers)
         return split_dates
@@ -58,8 +60,8 @@ def blank_unmarked_dates(
     return new_date_list
 
 
-def split_dates_to_weeks(date_list: Sequence[str]) -> List[Sequence[str]]:
-    new_list = list(chunk(date_list, 7))
+def split_dates_to_weeks(date_list: Sequence[str]) -> List[List[str]]:
+    new_list = list(chunked(date_list, 7))
     return new_list
 
 
