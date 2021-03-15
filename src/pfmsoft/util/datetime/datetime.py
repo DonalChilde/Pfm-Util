@@ -4,8 +4,8 @@ from typing import Sequence
 
 from dateutil import tz
 
-from pfm_util.collection.search import distance_in_list
-from pfm_util.filter.filter import simple_filter
+from pfmsoft.util.collection.search import distance_in_list
+from pfmsoft.util.filter.filter import simple_filter
 
 #### setting up logger ####
 logger = logging.getLogger(__name__)

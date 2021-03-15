@@ -2,7 +2,7 @@ import logging
 
 import pytest
 
-from pfm_util.math import calculations
+from pfmsoft.util.math import calculations
 
 #### setting up logger ####
 logger = logging.getLogger(__name__)

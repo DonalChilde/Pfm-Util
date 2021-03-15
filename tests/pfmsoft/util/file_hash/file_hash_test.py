@@ -8,7 +8,7 @@ from pathlib import Path
 
 import pytest
 
-from pfm_util.file_hash import file_hash
+from pfmsoft.util.file_hash import file_hash
 
 
 @pytest.fixture(scope="function")

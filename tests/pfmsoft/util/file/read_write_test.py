@@ -3,7 +3,7 @@ from pathlib import Path
 
 import pytest
 
-from pfm_util.file.read_write import (
+from pfmsoft.util.file.read_write import (
     load_json,
     save_json,
     save_lines,

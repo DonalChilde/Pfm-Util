@@ -5,7 +5,7 @@ from datetime import date, datetime, timedelta
 import dateutil
 import pytest
 
-from pfm_util.datetime.datetime import (
+from pfmsoft.util.datetime.datetime import (
     beginning_of_week,
     end_of_week,
     range_of_dates,

@@ -2,7 +2,7 @@ import logging
 
 import pytest
 
-from pfm_util.collection.sort import (
+from pfmsoft.util.collection.sort import (
     SortInstruction,
     index_objects,
     sort_in_place,

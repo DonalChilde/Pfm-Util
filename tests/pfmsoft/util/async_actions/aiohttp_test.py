@@ -208,7 +208,7 @@ async def consumer(queue):
 
 
 def make_consumer(queue):
-    async def consumer(queue):
+    async def consumer2(queue):
         while True:
             print("getting action from queue.")
             action: AsyncAction = await queue.get()
@@ -220,7 +220,7 @@ def make_consumer(queue):
             print("action complete: ", action)
             queue.task_done()
 
-    worker = consumer(queue)
+    worker = consumer2(queue)
     return worker
 
 

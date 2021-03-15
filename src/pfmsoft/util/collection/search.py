@@ -1,7 +1,7 @@
 import logging
 from typing import Any, Callable, Dict, List, Optional, Sequence, Tuple, TypeVar
 
-from pfm_util.collection.misc import wrap_range
+from pfmsoft.util.collection.misc import wrap_range
 
 #### setting up logger ####
 logger = logging.getLogger(__name__)

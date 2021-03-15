@@ -4,7 +4,7 @@ from typing import Dict, List, Optional
 
 import pytest
 
-from pfm_util.collection.misc import optional_object, wrap_range
+from pfmsoft.util.collection.misc import optional_object, wrap_range
 
 #### setting up logger ####
 logger = logging.getLogger(__name__)

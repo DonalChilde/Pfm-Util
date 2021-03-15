@@ -5,7 +5,11 @@ from typing import List, Sequence, Tuple
 from more_itertools import chunked
 
 # from pfm_util.collection.misc import chunk
-from pfm_util.datetime.datetime import beginning_of_week, end_of_week, range_of_dates
+from pfmsoft.util.datetime.datetime import (
+    beginning_of_week,
+    end_of_week,
+    range_of_dates,
+)
 
 
 class CalendarMaker:
