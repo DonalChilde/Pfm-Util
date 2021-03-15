@@ -1,4 +1,5 @@
 pip
+setuptools
 black
 wheel
 tox
@@ -9,6 +10,7 @@ twine
 Click
 pytest
 pytest-cov
+pytest-asyncio
 Faker
 pylint
 mypy
