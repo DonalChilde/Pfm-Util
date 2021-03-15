@@ -6,6 +6,7 @@ tox
 coverage
 Sphinx
 sphinx-autodoc-typehints
+snooty-lextudio
 twine
 Click
 pytest
