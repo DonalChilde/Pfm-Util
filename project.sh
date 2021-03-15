@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# Master copy located at pfm_util
+# Version 1.0
+# 2021-03-15T16:27:09Z
+
 #https://github.com/nickjj/docker-flask-example/blob/main/run
 
 # -e Exit immediately if a pipeline returns a non-zero status.
@@ -9,13 +13,14 @@ set -euo pipefail
 
 # TODO make completions for script.
 # https://iridakos.com/programming/2018/03/01/bash-programmable-completion-tutorial
+# TODO make a more detailed help.
 
 PACKAGE="${PACKAGE:-monitored_async_queue}"
 SRC_PATH="src/"
 BROWSER="google-chrome"
 CODE_PATHS=("./src" "./tests")
 
-function init_dirs() {
+function project:init:dirs() {
     # make the project subdirectories. I think cookiecutter is better here
     DIRS=("./src" "./docs" "./tests")
     for d in "${DIRS[@]}"; do
@@ -29,23 +34,38 @@ function init_dirs() {
     done
 }
 
+function project:init:all() {
+
+    project:init:dirs
+    venv:init
+    pip3:install:all
+}
+
+function project:reset_venv() {
+    venv:remove
+    venv:init
+    pip3:install:all
+
+}
+
+function project:install:editable() {
+    # shellcheck disable=SC1091
+    _pip3 install --editable .
+}
+
 function venv:init() {
     # makes a venv and installs dev dependencies
     python3 -m venv ./.venv
     # shellcheck disable=SC1091
     source ./.venv/bin/activate
     PIP_REQUIRE_VIRTUALENV=true pip install -U pip setuptools wheel
-    # pip install wheel
-    # pip install -r ./requirements_dev.txt
-    # pip install -r ./requirements.txt
-
 }
 
 function venv:remove() {
     # removes a venv
-
-    deactivate
-    rm -r ./.venv/
+    printf "\nDeleting ./.venv deactivate any terminal windows that were using that venv.\n"
+    deactivate || true
+    rm -r ./.venv/ || true
 }
 
 function _pip3() {
@@ -61,11 +81,6 @@ function pip3:install() {
 function pip3:install:all() {
     _pip3 install -r ./requirements_dev.txt
     _pip3 install -r ./requirements.txt
-}
-
-function pip3:install:editable() {
-    # shellcheck disable=SC1091
-    _pip3 install --editable .
 }
 
 function pip3:outdated() {
