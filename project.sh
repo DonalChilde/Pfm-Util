@@ -3,6 +3,7 @@
 # Master copy located at pfm_util
 # Version 1.0
 # 2021-03-15T16:27:09Z
+# Note: this script expects to live in the top directory of a project.
 
 #https://github.com/nickjj/docker-flask-example/blob/main/run
 
@@ -14,21 +15,23 @@ set -euo pipefail
 # TODO make completions for script.
 # https://iridakos.com/programming/2018/03/01/bash-programmable-completion-tutorial
 # TODO make a more detailed help.
+# TODO add check to make sure that we are piping to the correct virtual env.
 
-PACKAGE="${PACKAGE:-monitored_async_queue}"
+PACKAGE="${PACKAGE:-pfmsoft}"
 SRC_PATH="src/"
 BROWSER="google-chrome"
 CODE_PATHS=("./src" "./tests")
 
 function project:init:dirs() {
     # make the project subdirectories. I think cookiecutter is better here
-    DIRS=("./src" "./docs" "./tests")
+    DIRS=("./src/pfmsoft" "./docs" "./tests/pfmsoft")
     for d in "${DIRS[@]}"; do
         mkdir -p "$d"
     done
     FILES=("./setup.cfg" "./setup.py" "tox.ini" "requirements.txt" "requirements_dev.txt"
         "pyproject.toml" "MANIFEST.in" "LICENSE" "HISTORY.rst" "CONTRIBUTING.rst" "AUTHORS.rst"
-        ".pre-commit-config.yaml" "README.rst" ".gitignore" ".coveragerc")
+        ".pre-commit-config.yaml" "README.rst" ".gitignore" ".coveragerc"
+        "./src/pfmsoft/__init__.py" "./tests/pfmsoft/__init__.py" "./tests/__init__.py")
     for f in "${FILES[@]}"; do
         touch "$f"
     done
@@ -69,6 +72,7 @@ function venv:remove() {
 }
 
 function _pip3() {
+    printf "\nUsing virtual env located at:\n%s\n" "$VIRTUAL_ENV"
     PIP_REQUIRE_VIRTUALENV=true pip3 "${@}"
 }
 
@@ -76,6 +80,10 @@ function pip3:install() {
     # shellcheck disable=SC1091
     # source ./.venv/bin/activate
     _pip3 install "${@}"
+}
+
+function pip3:uninstall() {
+    _pip3 uninstall "${@}"
 }
 
 function pip3:install:all() {
