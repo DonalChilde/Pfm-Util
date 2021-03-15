@@ -2,3 +2,4 @@ click
 python-dateutil
 aiohttp
 pypdf4
+rich
