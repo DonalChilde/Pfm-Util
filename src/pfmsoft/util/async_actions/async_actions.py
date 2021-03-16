@@ -57,8 +57,8 @@ class QueueWorker:
                 action: AsyncAction = await queue.get()
                 try:
                     await action.do_action()
-                except Exception as e:
-                    print(e)
+                except Exception as ex:
+                    print(ex)
                 queue.task_done()
 
         worker = consumer(queue)
@@ -85,12 +85,12 @@ class AsyncAction:
     def __init__(
         self,
         name: str = "",
-        id: Optional[str] = None,
+        id_: Optional[str] = None,
         action_callbacks: Optional[Dict[str, Sequence[AsyncActionCallback]]] = None,
         action_messengers: Optional[Sequence[AsyncActionMessenger]] = None,
     ) -> None:
         self.name = name
-        self.id = (id,)
+        self.id = id_
         self.action_callbacks: Optional[
             Dict[str, Sequence[AsyncActionCallback]]
         ] = action_callbacks
