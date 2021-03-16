@@ -14,6 +14,8 @@ from pfmsoft.util.async_actions import AsyncAction, QueueWorker, do_async_action
 from pfmsoft.util.async_actions.aiohttp import (
     AiohttpAction,
     AiohttpActionCallback,
+    AiohttpActionMessenger,
+    AiohttpQueueWorker,
     LogFailure,
     LogRetry,
     LogSuccess,
@@ -22,8 +24,6 @@ from pfmsoft.util.async_actions.aiohttp import (
 
 
 def make_get_action(
-    queue: Queue,
-    session: ClientSession,
     route: str,
     url_parameters: Dict[str, Any],
     request_kwargs,
@@ -32,8 +32,6 @@ def make_get_action(
     base_path = "esi.evetech.net"
     url_template: str = "https://" + base_path + route
     action = AiohttpAction(
-        queue=queue,
-        session=session,
         method="get",
         url_template=url_template,
         url_parameters=url_parameters,
@@ -48,11 +46,9 @@ async def test_get_market_history():
     region_id = 10000002
     type_id = 34
     queue = Queue()
+    action = market_history_action(region_id=region_id, type_id=type_id)
     async with ClientSession() as session:
-        action = market_history_action(
-            queue=queue, session=session, region_id=region_id, type_id=type_id
-        )
-        await action.do_action()
+        await action.do_action(queue, session)
         assert action.response.status == 200
     # inspect(action)
     # assert False
@@ -67,13 +63,11 @@ async def test_get_market_history_queue_single(caplog):
     action_list: List[AiohttpAction] = []
     worker_count = 1
     workers = []
-    for _ in range(worker_count):
-        workers.append(QueueWorker().get_worker(queue))
+    action = market_history_action(region_id=region_id, type_id=type_id)
+    action_list.append(action)
     async with ClientSession() as session:
-        action = market_history_action(
-            queue=queue, session=session, region_id=region_id, type_id=type_id
-        )
-        action_list.append(action)
+        for _ in range(worker_count):
+            workers.append(AiohttpQueueWorker().get_worker(queue, session))
         await do_async_action_queue(action_list, workers, queue)
         assert action.response.status == 200
     # assert False
@@ -87,14 +81,11 @@ async def test_get_market_history_queue_multiple(caplog):
     queue = Queue()
     worker_count = 15
     workers = []
-    for _ in range(worker_count):
-        workers.append(QueueWorker().get_worker(queue))
+    actions = market_history_actions(region_ids=region_ids, type_ids=type_ids)
     async with ClientSession() as session:
-        actions = market_history_actions(
-            queue=queue, session=session, region_ids=region_ids, type_ids=type_ids
-        )
+        for _ in range(worker_count):
+            workers.append(AiohttpQueueWorker().get_worker(queue, session))
         await do_async_action_queue(actions, workers, queue)
-
     for action in actions:
         assert action.response.status == 200
     # assert False
@@ -108,12 +99,11 @@ async def test_success_action_callbacks(caplog):
     queue = Queue()
     worker_count = 15
     workers = []
-    for _ in range(worker_count):
-        workers.append(QueueWorker().get_worker(queue))
+    actions = market_history_actions(region_ids=region_ids, type_ids=type_ids)
+
     async with ClientSession() as session:
-        actions = market_history_actions(
-            queue=queue, session=session, region_ids=region_ids, type_ids=type_ids
-        )
+        for _ in range(worker_count):
+            workers.append(AiohttpQueueWorker().get_worker(queue, session))
         await do_async_action_queue(actions, workers, queue)
     for action in actions:
         assert action.response.status == 200
@@ -128,11 +118,9 @@ async def test_get_market_history_queue_local_def():
     type_id = 34
     queue = Queue()
     workers = []
-    workers.append(make_consumer(queue))
+    action = market_history_action(region_id=region_id, type_id=type_id)
     async with ClientSession() as session:
-        action = market_history_action(
-            queue=queue, session=session, region_id=region_id, type_id=type_id
-        )
+        workers.append(make_consumer(queue, session))
         queue.put_nowait(action)
         worker_tasks = []
         for worker in workers:
@@ -146,34 +134,28 @@ async def test_get_market_history_queue_local_def():
 
 
 def market_history_actions(
-    queue: Queue,
-    session: ClientSession,
     region_ids: Sequence[int],
     type_ids: Sequence[int],
 ) -> List[AiohttpAction]:
     actions = []
     for region_id in region_ids:
         for type_id in type_ids:
-            actions.append(market_history_action(queue, session, region_id, type_id))
+            actions.append(market_history_action(region_id, type_id))
     return actions
 
 
 def market_history_actions_with_callbacks(
-    queue: Queue,
-    session: ClientSession,
     region_ids: Sequence[int],
     type_ids: Sequence[int],
 ) -> List[AiohttpAction]:
     actions = []
     for region_id in region_ids:
         for type_id in type_ids:
-            actions.append(market_history_action(queue, session, region_id, type_id))
+            actions.append(market_history_action(region_id, type_id))
     return actions
 
 
-def market_history_action(
-    queue: Queue, session: ClientSession, region_id, type_id
-) -> AiohttpAction:
+def market_history_action(region_id, type_id) -> AiohttpAction:
     route = "/latest/markets/${region_id}/history"
     url_parameters = {"region_id": region_id}
     params = {"datasource": "tranquility", "type_id": type_id}
@@ -184,8 +166,6 @@ def market_history_action(
         "fail": [LogFailure()],
     }
     action = make_get_action(
-        queue=queue,
-        session=session,
         route=route,
         url_parameters=url_parameters,
         request_kwargs=request_kwargs,
@@ -194,27 +174,27 @@ def market_history_action(
     return action
 
 
-async def consumer(queue):
+async def consumer(queue, session):
     while True:
         print("getting action from queue.")
         action: AsyncAction = await queue.get()
         try:
             print("awaiting action: ", action)
-            await action.do_action()
+            await action.do_action(queue, session)
         except Exception as e:
             print(e)
         print("action complete: ", action)
         queue.task_done()
 
 
-def make_consumer(queue):
+def make_consumer(queue, session):
     async def consumer2(queue):
         while True:
             print("getting action from queue.")
             action: AsyncAction = await queue.get()
             try:
                 print("awaiting action: ", action)
-                await action.do_action()
+                await action.do_action(queue, session)
             except Exception as e:
                 print(e)
             print("action complete: ", action)
