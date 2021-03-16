@@ -15,7 +15,7 @@ from pfmsoft.util.async_actions.aiohttp import (
     AiohttpActionCallback,
     AiohttpActionMessenger,
     AiohttpQueueWorker,
-    LogFailure,
+    LogFail,
     LogRetry,
     LogSuccess,
     ResponseToJson,
@@ -153,7 +153,7 @@ def market_history_action(region_id, type_id) -> AiohttpAction:
     callbacks = {
         "success": [ResponseToJson(), LogSuccess()],
         "retry": [LogRetry()],
-        "fail": [LogFailure()],
+        "fail": [LogFail()],
     }
     action = make_get_action(
         route=route,

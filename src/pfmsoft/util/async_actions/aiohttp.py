@@ -7,17 +7,12 @@ from typing import TYPE_CHECKING, Any, Dict, Optional, Sequence, Union
 
 from aiohttp import ClientResponse, ClientSession
 
+from pfmsoft.util.collection.misc import optional_object
+
 logger = logging.getLogger(__name__)
 
 
 HTTP_STATUS_CODES_TO_RETRY = [500, 502, 503, 504]
-
-
-def default_object_check(init_attribute, default_constructor):
-    # TODO save to utilities
-    if init_attribute is None:
-        return default_constructor()
-    return init_attribute
 
 
 class AiohttpQueueWorker:
@@ -67,15 +62,15 @@ class AiohttpAction:
         self.action_messengers = action_messengers
         self.method = method
         self.url_template = url_template
-        self.url_parameters: Dict = default_object_check(url_parameters, dict)
+        self.url_parameters: Dict = optional_object(url_parameters, dict)
         self.url = Template(url_template).substitute(self.url_parameters)
         self.retry_limit = retry_limit
         self.response: Optional[ClientResponse] = None
         # self.response_data: Optional[Union[str, dict, bytes]] = None
         self.retry_count: int = 0
         self.result: Any = None
-        self.request_kwargs = default_object_check(request_kwargs, dict)
-        self.context = default_object_check(context, dict)
+        self.request_kwargs = optional_object(request_kwargs, dict)
+        self.context = optional_object(context, dict)
         # self.json_data = None
 
     async def success(self, **kwargs):
@@ -208,7 +203,7 @@ class LogSuccess(AiohttpActionCallback):
         )
 
 
-class LogFailure(AiohttpActionCallback):
+class LogFail(AiohttpActionCallback):
     def __init__(self) -> None:
         super().__init__()
 
