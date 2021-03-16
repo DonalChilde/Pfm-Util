@@ -1,6 +1,8 @@
 import logging
+from asyncio import Task, create_task, gather
 from asyncio.queues import Queue
 from string import Template
+from time import perf_counter_ns
 from typing import TYPE_CHECKING, Any, Dict, Optional, Sequence, Union
 
 from aiohttp import ClientResponse, ClientSession
@@ -123,6 +125,43 @@ class AiohttpAction:
             logger.warning(
                 "Checked response before response recieved. This should not be possible."
             )
+
+
+async def do_aiohttp_action_queue(
+    actions: Sequence[AiohttpAction],
+    worker_factories: Sequence[AiohttpQueueWorker],
+    session_kwargs=None,
+):
+    start = perf_counter_ns()
+    if session_kwargs is None:
+        session_kwargs = {}
+    queue: Queue = Queue()
+    async with ClientSession(**session_kwargs) as session:
+        logger.info(
+            "Starting queue with %s workers and %s actions",
+            len(worker_factories),
+            len(actions),
+        )
+
+        worker_tasks = []
+        for factory in worker_factories:
+            worker_task: Task = create_task(factory.get_worker(queue, session))
+            worker_tasks.append(worker_task)
+        logger.info("Adding %d actions to queue", len(actions))
+        for action in actions:
+            queue.put_nowait(action)
+        await queue.join()
+        for worker_task in worker_tasks:
+            worker_task.cancel()
+        await gather(*worker_tasks, return_exceptions=True)
+        end = perf_counter_ns()
+        # TODO change timing formatter to lib method
+        seconds = (end - start) / 1000000000
+        logger.info(
+            "Queue completed -  took %s seconds, %s actions per second.",
+            f"{seconds:9f}",
+            f"{len(actions)/seconds:1f}",
+        )
 
 
 class AiohttpActionCallback:

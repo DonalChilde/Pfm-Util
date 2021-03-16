@@ -10,7 +10,6 @@ import pytest
 from aiohttp.client import ClientSession
 from rich import inspect, print
 
-from pfmsoft.util.async_actions import AsyncAction, QueueWorker, do_async_action_queue
 from pfmsoft.util.async_actions.aiohttp import (
     AiohttpAction,
     AiohttpActionCallback,
@@ -20,6 +19,7 @@ from pfmsoft.util.async_actions.aiohttp import (
     LogRetry,
     LogSuccess,
     ResponseToJson,
+    do_aiohttp_action_queue,
 )
 
 
@@ -59,17 +59,11 @@ async def test_get_market_history_queue_single(caplog):
     caplog.set_level(logging.INFO)
     region_id = 10000002
     type_id = 34
-    queue = Queue()
     action_list: List[AiohttpAction] = []
-    worker_count = 1
-    workers = []
     action = market_history_action(region_id=region_id, type_id=type_id)
     action_list.append(action)
-    async with ClientSession() as session:
-        for _ in range(worker_count):
-            workers.append(AiohttpQueueWorker().get_worker(queue, session))
-        await do_async_action_queue(action_list, workers, queue)
-        assert action.response.status == 200
+    await do_aiohttp_action_queue(action_list, [AiohttpQueueWorker()])
+    assert action.response.status == 200
     # assert False
 
 
@@ -78,14 +72,12 @@ async def test_get_market_history_queue_multiple(caplog):
     caplog.set_level(logging.INFO)
     region_ids = [10000002, 10000032, 10000030, 10000042, 10000043]
     type_ids = [34, 36, 38]
-    queue = Queue()
     worker_count = 15
     workers = []
     actions = market_history_actions(region_ids=region_ids, type_ids=type_ids)
-    async with ClientSession() as session:
-        for _ in range(worker_count):
-            workers.append(AiohttpQueueWorker().get_worker(queue, session))
-        await do_async_action_queue(actions, workers, queue)
+    for _ in range(worker_count):
+        workers.append(AiohttpQueueWorker())
+    await do_aiohttp_action_queue(actions, workers)
     for action in actions:
         assert action.response.status == 200
     # assert False
@@ -96,15 +88,13 @@ async def test_success_action_callbacks(caplog):
     caplog.set_level(logging.INFO)
     region_ids = [10000002, 10000032, 10000030, 10000042, 10000043]
     type_ids = [34, 36, 38]
-    queue = Queue()
     worker_count = 15
     workers = []
     actions = market_history_actions(region_ids=region_ids, type_ids=type_ids)
 
-    async with ClientSession() as session:
-        for _ in range(worker_count):
-            workers.append(AiohttpQueueWorker().get_worker(queue, session))
-        await do_async_action_queue(actions, workers, queue)
+    for _ in range(worker_count):
+        workers.append(AiohttpQueueWorker())
+    await do_aiohttp_action_queue(actions, workers)
     for action in actions:
         assert action.response.status == 200
         assert len(action.result) > 5
@@ -177,7 +167,7 @@ def market_history_action(region_id, type_id) -> AiohttpAction:
 async def consumer(queue, session):
     while True:
         print("getting action from queue.")
-        action: AsyncAction = await queue.get()
+        action: AiohttpAction = await queue.get()
         try:
             print("awaiting action: ", action)
             await action.do_action(queue, session)
@@ -191,7 +181,7 @@ def make_consumer(queue, session):
     async def consumer2(queue):
         while True:
             print("getting action from queue.")
-            action: AsyncAction = await queue.get()
+            action: AiohttpAction = await queue.get()
             try:
                 print("awaiting action: ", action)
                 await action.do_action(queue, session)
@@ -204,6 +194,7 @@ def make_consumer(queue, session):
     return worker
 
 
+########################################################################
 async def example_worker(name, queue):
     while True:
         # Get a "work item" out of the queue.
