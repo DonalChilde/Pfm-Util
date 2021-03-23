@@ -160,7 +160,7 @@ async def do_aiohttp_action_queue(
 
 
 class AiohttpActionCallback:
-    def __init__(self) -> None:
+    def __init__(self, *args, **kwargs) -> None:
         pass
 
     async def do_callback(self, caller: AiohttpAction, *args, **kwargs):
