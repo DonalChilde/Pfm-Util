@@ -6,7 +6,6 @@ tox
 coverage
 Sphinx
 sphinx-autodoc-typehints
-snooty-lextudio
 twine
 Click
 pytest
@@ -16,7 +15,9 @@ Faker
 pylint
 mypy
 doc8
-rstcheck
 pre-commit
-
 python-dateutil
+
+# Vscode support
+rstcheck
+esbonio
