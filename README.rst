@@ -15,6 +15,7 @@ PFM Util
 
 
 
+.. note:: This code no longer maintained, moved to snippets.
 
 A collection of utility code.
 
